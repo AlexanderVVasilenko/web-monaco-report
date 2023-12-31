@@ -3,9 +3,9 @@ from f1_racing_reports.report import parse_logs, load_abbreviations
 
 app = Flask(__name__)
 
-start_log_file = "start.log"
-end_log_file = "end.log"
-abbreviations_file_path = "abbreviations.txt"
+start_log_file = "src/start.log"
+end_log_file = "src/end.log"
+abbreviations_file_path = "src/abbreviations.txt"
 
 abbreviations = load_abbreviations(abbreviations_file_path)
 
