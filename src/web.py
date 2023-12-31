@@ -32,7 +32,6 @@ def driver_list():
 
     if driver_id:
         for racer in top_racers + remaining_racers:
-            print(racer, dir(racer))
             if racer.driver_id == driver_id:
                 return render_template('driver_info.html', racer=racer)
 
@@ -44,7 +43,6 @@ def driver_list():
         sorted_racers = sorted(abbreviations, key=lambda x: x[1], reverse=True)
     else:
         return redirect(url_for("drivers"))
-    print(top_racers)
 
     return render_template('driver_list.html', racers=sorted_racers)
 
