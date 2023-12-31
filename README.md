@@ -26,7 +26,7 @@ A web application using Flask to generate reports on Formula 1 racing results.
 2. Navigate to the project directory:
 
     ```bash
-    cd your-repository
+    cd web-monaco-report
     ```
 
 3. Install dependencies:
