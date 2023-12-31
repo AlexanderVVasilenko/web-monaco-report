@@ -47,4 +47,5 @@ def driver_list():
     return render_template('driver_list.html', racers=sorted_racers)
 
 
-app.run(debug=True)
+if __name__ == '__main__':
+    app.run(debug=True)
