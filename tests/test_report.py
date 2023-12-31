@@ -18,7 +18,6 @@ def test_parse_logs():
     abbreviations = load_abbreviations(abbreviations_file_path)
     top_racers, remaining_racers = parse_logs(start_file, end_file, abbreviations)
 
-
     assert top_racers is not None
     assert remaining_racers is not None
 
