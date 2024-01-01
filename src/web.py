@@ -59,7 +59,7 @@ def driver_list():
 
 class ReportResource(Resource):
     @staticmethod
-    def get(order: str) -> (dict, int):
+    def get(order: str = None) -> (dict, int):
         sorted_racers = get_report(order)
         if not sorted_racers:
             return {"error": "Invalid order parameter"}, 400
@@ -69,7 +69,7 @@ class ReportResource(Resource):
 
 class DriverListResource(Resource):
     @staticmethod
-    def get(order: str, driver_id: str = None) -> (dict, int):
+    def get(order: str = None, driver_id: str = None) -> (dict, int):
 
         if driver_id:
             for racer in top_racers + remaining_racers:
@@ -85,8 +85,8 @@ class DriverListResource(Resource):
         return {"racers": sorted_racers}, 200
 
 
-api.add_resource(ReportResource, "/report")
-api.add_resource(DriverListResource, "/report/drivers")
+api.add_resource(ReportResource, "/api/report")
+api.add_resource(DriverListResource, "/api/report/drivers")
 
 
 if __name__ == '__main__':
