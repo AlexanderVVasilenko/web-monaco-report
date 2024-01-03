@@ -1,9 +1,13 @@
-from flask import Flask, render_template, request, redirect, url_for
-from flask_restful import Api, Resource
-from f1_racing_reports.report import parse_logs, load_abbreviations
+from flask import Flask, render_template, request, redirect, url_for, jsonify
+from flask_restful import Api, Resource, reqparse
+from f1_racing_reports.report import parse_logs, load_abbreviations, RacerData
 
 app = Flask(__name__)
 api = Api(app)
+api.app.config['RESTFUL_JSON'] = {
+    'ensure_ascii': False
+}
+
 
 start_log_file = "src/start.log"
 end_log_file = "src/end.log"
@@ -12,6 +16,18 @@ abbreviations_file_path = "src/abbreviations.txt"
 abbreviations = load_abbreviations(abbreviations_file_path)
 
 top_racers, remaining_racers = parse_logs(start_log_file, end_log_file, abbreviations)
+
+
+def reformat_racers_to_dict(racers: list[RacerData]) -> list[dict]:
+    result = list()
+    for racer in racers:
+        new_racer = dict()
+        new_racer["name"] = racer.name
+        new_racer["team"] = racer.team
+        new_racer["lap_time"] = racer.lap_time
+        new_racer["driver_id"] = racer.driver_id
+        result.append(new_racer)
+    return result
 
 
 def get_report(order: str = None) -> list | None:
@@ -26,6 +42,11 @@ def get_driver_list(order: str = None) -> list | None:
         return sorted(abbreviations, key=lambda x: x[1])
     elif order == "desc":
         return sorted(abbreviations, key=lambda x: x[1], reverse=True)
+
+
+parser = reqparse.RequestParser()
+parser.add_argument("order", "asc", location="form")
+parser.add_argument("driver_id", location="form")
 
 
 @app.route("/report/", methods=["GET"])
@@ -59,22 +80,26 @@ def driver_list():
 
 class ReportResource(Resource):
     @staticmethod
-    def get(order: str = None) -> (dict, int):
+    def get() -> (dict, int):
+        order = parser.parse_args()["order"]
         sorted_racers = get_report(order)
         if not sorted_racers:
             return {"error": "Invalid order parameter"}, 400
 
-        return {"racers": sorted_racers}, 200
+        return {"racers": reformat_racers_to_dict(sorted_racers)}, 200
 
 
 class DriverListResource(Resource):
     @staticmethod
-    def get(order: str = None, driver_id: str = None) -> (dict, int):
-
+    def get() -> (dict, int):
+        args = parser.parse_args()
+        driver_id = args["driver_id"]
+        order = args["order"]
         if driver_id:
             for racer in top_racers + remaining_racers:
                 if racer.driver_id == driver_id:
-                    return {'racer': racer}
+                    racer = reformat_racers_to_dict([racer])[0]
+                    return {'racer': racer}, 200
 
             return {"error": "Driver not found"}, 404
 
@@ -85,8 +110,8 @@ class DriverListResource(Resource):
         return {"racers": sorted_racers}, 200
 
 
-api.add_resource(ReportResource, "/api/report")
-api.add_resource(DriverListResource, "/api/report/drivers")
+api.add_resource(ReportResource, "/api/report/")
+api.add_resource(DriverListResource, "/api/report/drivers/")
 
 
 if __name__ == '__main__':
