@@ -2,7 +2,7 @@
 from flask import request
 from flask_restful import Resource
 
-from app import app
+from app import app, api_app
 from package_interaction import (
     top_racers,
     remaining_racers,
@@ -44,5 +44,14 @@ class DriverResource(Resource):
         return {"error": "Driver not found"}, 404
 
 
-if __name__ == "__main__":
-    app.run(debug=True)
+version = "v1"
+
+api_app.add_resource(ReportResource, f"/api/{version}/report", endpoint="full_report")
+api_app.add_resource(
+    DriverResource,
+    f"/api/{version}/report/drivers/<string:driver_id>",
+    endpoint="driver_detail",
+)
+api_app.add_resource(
+    DriversListResource, f"/api/{version}/report/drivers", endpoint="drivers_list"
+)
