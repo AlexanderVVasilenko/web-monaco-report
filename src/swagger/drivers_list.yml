@@ -1,0 +1,19 @@
+parameters:
+  - name: order
+    in: query
+    type: string
+    enum: ['asc', 'desc']
+responses:
+  200:
+    description: List of drivers
+    schema:
+      id: drivers_list
+      properties:
+        racers:
+          type: array
+          items:
+            type: array
+            items:
+              type: string
+  400:
+    description: Invalid order parameter

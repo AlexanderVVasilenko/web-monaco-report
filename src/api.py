@@ -1,3 +1,4 @@
+from flasgger import swag_from
 from flask import request
 from flask_restful import Resource
 
@@ -12,8 +13,8 @@ from package_interaction import (
 
 
 class ReportResource(Resource):
-    @staticmethod
-    def get() -> (dict, int):
+    @swag_from("swagger/report.yml")
+    def get(self) -> (dict, int):
         order = request.args.get("order", "asc")
         sorted_racers = get_report(order)
         if not sorted_racers:
@@ -23,8 +24,8 @@ class ReportResource(Resource):
 
 
 class DriversListResource(Resource):
-    @staticmethod
-    def get() -> (dict, int):
+    @swag_from("swagger/drivers_list.yml")
+    def get(self) -> (dict, int):
         order = request.args.get("order", "asc")
         sorted_racers = get_driver_list(order)
         if not sorted_racers:
@@ -34,8 +35,8 @@ class DriversListResource(Resource):
 
 
 class DriverResource(Resource):
-    @staticmethod
-    def get(driver_id: str) -> (dict, int):
+    @swag_from("swagger/driver_details.yml")
+    def get(self, driver_id: str) -> (dict, int):
         for racer in top_racers + remaining_racers:
             if racer.driver_id == driver_id:
                 racer = reformat_racers_to_dict([racer])[0]

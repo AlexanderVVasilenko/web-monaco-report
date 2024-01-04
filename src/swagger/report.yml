@@ -1,0 +1,26 @@
+parameters:
+  - name: order
+    in: query
+    type: string
+    enum: ['asc', 'desc']
+responses:
+  200:
+    description: List of racers
+    schema:
+      id: report
+      properties:
+        racers:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              team:
+                type: string
+              lap_time:
+                type: string
+              driver_id:
+                type: string
+  400:
+    description: Invalid order parameter

@@ -44,11 +44,8 @@ A web and api application using Flask to generate reports on Formula 1 racing re
 
 5. Open your web browser and go to [http://127.0.0.1:5000/report/](http://127.0.0.1:5000/report/) to view the driver report.
    
-6. Run curl command to get request from API
-
-   ```bash
-   curl http://127.0.0.1:5000/api/v1/report
-   ```
+6. Open your web browser and go to [http://127.0.0.1:5000/apidocs/](http://127.0.0.1:5000/apidocs/) to view the 
+Swagger documentation.
 
 ## Endpoints
 
@@ -91,12 +88,11 @@ A web and api application using Flask to generate reports on Formula 1 racing re
   ```json lines
   {
     "racers": [
-      {
-        "name": "Driver Name",
-        "team": "Driver Team",
-        "lap_time": "0:01:30.000",
-        "driver_id": "DR1"
-      },
+      [
+        "Driver ID",
+        "Driver name",
+        "Driver team"
+      ],
       // ... (additional racers)
     ]
   }
@@ -131,7 +127,11 @@ A web and api application using Flask to generate reports on Formula 1 racing re
   
 ## Usage API
 
-To use the Formula 1 Racing API, send HTTP requests to the specified endpoints using your preferred API client or tool.
+Explore the available endpoints, parameters, and responses interactively.
+
+![Swagger UI](swagger_screen.png)
+
+**Note:** Make sure the Flask app is running before accessing the Swagger documentation.
 
 ## Tests
 
