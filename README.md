@@ -1,6 +1,6 @@
 # F1 Racing Reports Web App
 
-A web application using Flask to generate reports on Formula 1 racing results.
+A web and api application using Flask to generate reports on Formula 1 racing results.
 
 ## Features
 
@@ -39,31 +39,105 @@ A web application using Flask to generate reports on Formula 1 racing results.
 4. Run the Flask app:
 
     ```bash
-    python src/web.py
+    python src/app.py
     ```
 
 5. Open your web browser and go to [http://127.0.0.1:5000/report/](http://127.0.0.1:5000/report/) to view the driver report.
 
-## Usage
+6. Determinate previous process and run the FlaskRestAPI app:
 
-### Driver Report
+   ```bash
+   python src/api.py
+   ```
+   
+7. Run curl command to get request from API
 
-To view a list of Formula 1 drivers and their lap time statistics:
+   ```bash
+   curl http://127.0.0.1:5000/report
+   ```
 
-- [http://127.0.0.1:5000/report/](http://127.0.0.1:5000/report/)
+## Endpoints
 
-### Sorting
+### 1. Get Full Racing Report
 
-To sort the driver list in ascending or descending order:
+* **Endpoint: `/api/v1/report`**
+* **Method: `GET`**
+* **Parameters:**
+  * **`order`** (optional): Specify the order of the report. Use **`asc`** for ascending order and **`desc`** for descending 
+    order.
+* **Response**:
+  * Successful Response: 200 OK
+  ```json lines
+  {
+    "racers": [
+      {
+        "name": "Driver Name",
+        "team": "Driver Team",
+        "lap_time": "0:01:30.000",
+        "driver_id": "DR1"
+      },
+      // ... (additional racers)
+    ]
+  }
+  ```
+  * Error Response: 400 Bad Request
+  ```json
+  {
+    "error": "Invalid order parameter"
+  }
+  ```
+### 2. Get Driver List
+* **Endpoint: `/api/v1/report/drivers`**
+* **Method: `GET`**
+* **Parameters:**
+  * **`order`** (optional): Specify the order of the report. Use **`asc`** for ascending order and **`desc`** for descending 
+    order.
+* **Response**:
+  * Successful Response: 200 OK
+  ```json lines
+  {
+    "racers": [
+      {
+        "name": "Driver Name",
+        "team": "Driver Team",
+        "lap_time": "0:01:30.000",
+        "driver_id": "DR1"
+      },
+      // ... (additional racers)
+    ]
+  }
+  ```
+  * Error Response: 400 Bad Request
+  ```json
+  {
+    "error": "Invalid order parameter"
+  }
+  ```
+### 3. Get Driver Information
+* **Endpoint: `/api/v1/report/drivers/<string:driver_id>`**
+* **Method: `GET`**
+* **Response**:
+  * Successful Response: 200 OK
+  ```json
+  {
+    "racer": {
+        "name": "Driver Name",
+        "team": "Driver Team",
+        "lap_time": "0:01:30.000",
+        "driver_id": "DR1"
+    }
+  }
+  ```
+  * Error Response: 400 Bad Request
+  ```json
+  {
+    "error": "Driver not found"
+  }
+  ```
+  
+## Usage API
 
-- [http://127.0.0.1:5000/report/?order=asc](http://127.0.0.1:5000/report/?order=asc)
-- [http://127.0.0.1:5000/report/?order=desc](http://127.0.0.1:5000/report/?order=desc)
-
-### Driver Details
-
-To view detailed lap time statistics for a specific driver (replace `<driver_id>` with the actual driver ID):
-
-- [http://127.0.0.1:5000/report/drivers/?driver_id=<driver_id>](http://127.0.0.1:5000/report/drivers/?driver_id=<driver_id>)
+To use the Formula 1 Racing API, send HTTP requests to the specified endpoints using your preferred API client or tool.
 
 ## Tests
 

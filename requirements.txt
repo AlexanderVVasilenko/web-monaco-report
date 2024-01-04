@@ -2,4 +2,4 @@ flask~=3.0.0
 --extra-index-url https://test.pypi.org/simple
 f1_racing_reports
 pytest
-Flask-API
+flask_restful

@@ -26,7 +26,9 @@ def test_parse_logs():
 
 
 def test_racer_data():
-    racer_data = RacerData(name="Test Driver", team="Test Team", lap_time="0:01:30.000", driver_id="")
+    racer_data = RacerData(
+        name="Test Driver", team="Test Team", lap_time="0:01:30.000", driver_id=""
+    )
 
     assert racer_data.name == "Test Driver"
     assert racer_data.team == "Test Team"
