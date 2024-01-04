@@ -32,7 +32,10 @@ def get_report(order: str = None) -> list | None:
 def get_driver_list(order: str = None) -> list | None:
     # Removing useless spaces from all fields
     reformatted_abbreviations = [[j.strip() for j in i] for i in abbreviations]
-    result = [{"driver_id": racer[0], "name": racer[1], "team": racer[2]} for racer in reformatted_abbreviations]
+    result = [
+        {"driver_id": racer[0], "name": racer[1], "team": racer[2]}
+        for racer in reformatted_abbreviations
+    ]
     if order == "asc":
         return sorted(result, key=lambda x: x["driver_id"])
     elif order == "desc":
