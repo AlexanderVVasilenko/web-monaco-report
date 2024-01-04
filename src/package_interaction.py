@@ -30,7 +30,9 @@ def get_report(order: str = None) -> list | None:
 
 
 def get_driver_list(order: str = None) -> list | None:
+    # Removing useless spaces from all fields
+    reformatted_abbreviations = [[j.strip() for j in i] for i in abbreviations]
     if order == "asc":
-        return sorted(abbreviations, key=lambda x: x[1])
+        return sorted(reformatted_abbreviations, key=lambda x: x[1])
     elif order == "desc":
-        return sorted(abbreviations, key=lambda x: x[1], reverse=True)
+        return sorted(reformatted_abbreviations, key=lambda x: x[1], reverse=True)
