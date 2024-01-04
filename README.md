@@ -39,18 +39,12 @@ A web and api application using Flask to generate reports on Formula 1 racing re
 4. Run the Flask app:
 
     ```bash
-    python src/app.py
+    python src/api.py
     ```
 
 5. Open your web browser and go to [http://127.0.0.1:5000/report/](http://127.0.0.1:5000/report/) to view the driver report.
-
-6. Determinate previous process and run the FlaskRestAPI app:
-
-   ```bash
-   python src/api.py
-   ```
    
-7. Run curl command to get request from API
+6. Run curl command to get request from API
 
    ```bash
    curl http://127.0.0.1:5000/report
