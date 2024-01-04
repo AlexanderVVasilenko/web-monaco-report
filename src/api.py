@@ -1,8 +1,7 @@
-# coding: utf-8
 from flask import request
 from flask_restful import Resource
 
-from app import app, api_app
+from app import api_app
 from package_interaction import (
     top_racers,
     remaining_racers,
