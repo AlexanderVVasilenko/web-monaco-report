@@ -1,42 +1,23 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask
+from flask_restful import Api
 
-from package_interaction import (
-    get_report,
-    top_racers,
-    remaining_racers,
-    get_driver_list,
-)
+from api import ReportResource, DriverResource, DriversListResource
 
 app = Flask(__name__)
+api = Api(app)
+api.app.config["RESTFUL_JSON"] = {"ensure_ascii": False}
 
+version = "v1"
 
-@app.route("/report/", methods=["GET"])
-def report():
-    order = request.args.get("order", "asc")
-    sorted_racers = get_report(order)
-    if not sorted_racers:
-        return redirect(url_for("report"))
-
-    return render_template("report.html", racers=sorted_racers)
-
-
-@app.route("/report/drivers/", methods=["GET"])
-def driver_list():
-    order = request.args.get("order", "asc")
-    driver_id = request.args.get("driver_id")
-
-    if driver_id:
-        for racer in top_racers + remaining_racers:
-            if racer.driver_id == driver_id:
-                return render_template("driver_info.html", racer=racer)
-
-        return "Driver not found", 404
-
-    sorted_racers = get_driver_list(order)
-    if not sorted_racers:
-        return redirect(url_for("drivers"))
-
-    return render_template("driver_list.html", racers=sorted_racers)
+api.add_resource(ReportResource, f"/api/{version}/report", endpoint="full_report")
+api.add_resource(
+    DriverResource,
+    f"/api/{version}/report/drivers/<string:driver_id>",
+    endpoint="driver_detail",
+)
+api.add_resource(
+    DriversListResource, f"/api/{version}/report/drivers", endpoint="drivers_list"
+)
 
 
 if __name__ == "__main__":

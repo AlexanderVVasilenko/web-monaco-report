@@ -1,6 +1,6 @@
 # coding: utf-8
 from flask import request
-from flask_restful import Api, Resource
+from flask_restful import Resource
 
 from app import app
 from package_interaction import (
@@ -10,12 +10,6 @@ from package_interaction import (
     get_report,
     get_driver_list,
 )
-
-api = Api(app)
-api.app.config["JSON_AS_ASCII"] = True
-api.app.config["RESTFUL_JSON"] = {"ensure_ascii": False}
-
-version = "v1"
 
 
 class ReportResource(Resource):
@@ -48,17 +42,6 @@ class DriverResource(Resource):
                 racer = reformat_racers_to_dict([racer])[0]
                 return {"racer": racer}, 200
         return {"error": "Driver not found"}, 404
-
-
-api.add_resource(ReportResource, f"/api/{version}/report", endpoint="full_report")
-api.add_resource(
-    DriverResource,
-    f"/api/{version}/report/drivers/<string:driver_id>",
-    endpoint="driver_detail",
-)
-api.add_resource(
-    DriversListResource, f"/api/{version}/report/drivers", endpoint="drivers_list"
-)
 
 
 if __name__ == "__main__":

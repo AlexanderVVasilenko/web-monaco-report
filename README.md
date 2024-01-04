@@ -39,7 +39,7 @@ A web and api application using Flask to generate reports on Formula 1 racing re
 4. Run the Flask app:
 
     ```bash
-    python src/api.py
+    python src/app.py
     ```
 
 5. Open your web browser and go to [http://127.0.0.1:5000/report/](http://127.0.0.1:5000/report/) to view the driver report.
