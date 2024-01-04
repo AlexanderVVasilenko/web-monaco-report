@@ -12,8 +12,13 @@ responses:
         racers:
           type: array
           items:
-            type: array
-            items:
-              type: string
+            type: object
+            properties:
+              driver_id:
+                type: string
+              name:
+                type: string
+              team:
+                type: string
   400:
     description: Invalid order parameter

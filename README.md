@@ -88,11 +88,11 @@ Swagger documentation.
   ```json lines
   {
     "racers": [
-      [
-        "Driver ID",
-        "Driver name",
-        "Driver team"
-      ],
+      {
+        "driver_id": "DR1",
+        "name": "Driver Name",
+        "team": "Driver Team",
+      },
       // ... (additional racers)
     ]
   }
