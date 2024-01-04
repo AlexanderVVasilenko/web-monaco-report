@@ -47,7 +47,7 @@ A web and api application using Flask to generate reports on Formula 1 racing re
 6. Run curl command to get request from API
 
    ```bash
-   curl http://127.0.0.1:5000/report
+   curl http://127.0.0.1:5000/api/v1/report
    ```
 
 ## Endpoints

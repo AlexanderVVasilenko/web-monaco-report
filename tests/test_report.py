@@ -2,7 +2,7 @@ from f1_racing_reports.report import parse_logs, load_abbreviations, RacerData
 
 
 def test_load_abbreviations():
-    abbreviations_file_path = "abbreviations.txt"
+    abbreviations_file_path = "inputs/abbreviations.txt"
     # Assuming you have a test abbreviations file
     abbreviations = load_abbreviations(abbreviations_file_path)
 
@@ -11,9 +11,9 @@ def test_load_abbreviations():
 
 
 def test_parse_logs():
-    start_file = "start.log"
-    end_file = "end.log"
-    abbreviations_file_path = "abbreviations.txt"
+    start_file = "inputs/start.log"
+    end_file = "inputs/end.log"
+    abbreviations_file_path = "inputs/abbreviations.txt"
 
     abbreviations = load_abbreviations(abbreviations_file_path)
     top_racers, remaining_racers = parse_logs(start_file, end_file, abbreviations)
