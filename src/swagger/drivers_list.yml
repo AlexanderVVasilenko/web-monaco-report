@@ -1,0 +1,31 @@
+parameters:
+  - name: order
+    in: query
+    type: string
+    enum: ['asc', 'desc']
+  - name: format
+    in: query
+    type: string
+    enum: ['json', 'xml']
+    default: 'json'
+responses:
+  200:
+    description: List of drivers
+    schema:
+      id: drivers_list
+      properties:
+        racers:
+          type: array
+          items:
+            type: object
+            properties:
+              driver_id:
+                type: string
+              name:
+                type: string
+              team:
+                type: string
+  400:
+    description: Invalid order parameter
+  406:
+    description: Invalid format parameter
