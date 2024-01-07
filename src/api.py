@@ -13,7 +13,7 @@ from package_interaction import (
 )
 
 
-def convert_to_xml(data):
+def convert_to_xml(data: list | dict) -> str:
     xml_data = xmltodict.unparse({"racers": {"racer": data}}, full_document=False)
     return xml_data
 
@@ -27,14 +27,14 @@ class ReportResource(Resource):
         if not sorted_racers:
             return {"error": "Invalid order parameter"}, 400
 
-        if format_type not in ['json', 'xml']:
+        if format_type not in ["json", "xml"]:
             return {"error": "Invalid format parameter"}, 406
 
-        if format_type == 'json':
+        if format_type == "json":
             return {"racers": reformat_racers_to_dict(sorted_racers)}, 200
-        elif format_type == 'xml':
+        elif format_type == "xml":
             xml_data = convert_to_xml(reformat_racers_to_dict(sorted_racers))
-            response = make_response(xml_data, 200, {'Content-Type': 'application/xml'})
+            response = make_response(xml_data, 200, {"Content-Type": "application/xml"})
             return response
 
 
@@ -42,7 +42,7 @@ class DriversListResource(Resource):
     @swag_from("swagger/drivers_list.yml")
     def get(self) -> (dict, int):
         format_type = request.args.get("format", "json")
-        if format_type not in ['json', 'xml']:
+        if format_type not in ["json", "xml"]:
             return {"error": "Invalid format parameter"}, 406
 
         order = request.args.get("order", "asc")
@@ -50,11 +50,11 @@ class DriversListResource(Resource):
         if not sorted_racers:
             return {"error": "Invalid order parameter"}, 400
 
-        if format_type == 'json':
+        if format_type == "json":
             return {"racers": sorted_racers}, 200
-        elif format_type == 'xml':
+        elif format_type == "xml":
             xml_data = convert_to_xml(sorted_racers)
-            response = make_response(xml_data, 200, {'Content-Type': 'application/xml'})
+            response = make_response(xml_data, 200, {"Content-Type": "application/xml"})
             return response
 
 
@@ -62,7 +62,7 @@ class DriverResource(Resource):
     @swag_from("swagger/driver_details.yml")
     def get(self, driver_id: str) -> (dict, int):
         format_type = request.args.get("format", "json")
-        if format_type not in ['json', 'xml']:
+        if format_type not in ["json", "xml"]:
             return {"error": "Invalid format parameter"}, 406
 
         for racer in top_racers + remaining_racers:
