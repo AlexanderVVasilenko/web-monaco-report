@@ -7,6 +7,7 @@ A web and api application using Flask to generate reports on Formula 1 racing re
 - **Driver Report:** View a list of Formula 1 drivers and their lap time statistics.
 - **Ordering:** Sort the driver list in ascending or descending order.
 - **Driver Details:** Get detailed lap time statistics for a specific driver.
+- - **Format Selection:** Choose between JSON and XML formats when retrieving reports.
 
 ## Prerequisites
 
@@ -56,6 +57,7 @@ Swagger documentation.
 * **Parameters:**
   * **`order`** (optional): Specify the order of the report. Use **`asc`** for ascending order and **`desc`** for descending 
     order.
+  * **`format`** (optional): Specify the response format. Use **`json`** or **`xml`**.
 * **Response**:
   * Successful Response: 200 OK
   ```json lines
@@ -77,12 +79,19 @@ Swagger documentation.
     "error": "Invalid order parameter"
   }
   ```
+  * Error Response: 406 Not Acceptable response
+  ```json
+  {
+    "error": "Invalid format parameter"
+  }
+  ```
 ### 2. Get Driver List
 * **Endpoint: `/api/v1/report/drivers`**
 * **Method: `GET`**
 * **Parameters:**
   * **`order`** (optional): Specify the order of the report. Use **`asc`** for ascending order and **`desc`** for descending 
     order.
+  * **`format`** (optional): Specify the response format. Use **`json`** or **`xml`**.
 * **Response**:
   * Successful Response: 200 OK
   ```json lines
@@ -103,9 +112,17 @@ Swagger documentation.
     "error": "Invalid order parameter"
   }
   ```
+  * Error Response: 406 Not Acceptable response
+  ```json
+  {
+    "error": "Invalid format parameter"
+  }
+  ```
 ### 3. Get Driver Information
 * **Endpoint: `/api/v1/report/drivers/<string:driver_id>`**
 * **Method: `GET`**
+* **Parameters:**
+  * **`format`** (optional): Specify the response format. Use **`json`** or **`xml`**.
 * **Response**:
   * Successful Response: 200 OK
   ```json
@@ -122,6 +139,12 @@ Swagger documentation.
   ```json
   {
     "error": "Driver not found"
+  }
+  ```
+  * Error Response: 406 Not Acceptable response
+  ```json
+  {
+    "error": "Invalid format parameter"
   }
   ```
   

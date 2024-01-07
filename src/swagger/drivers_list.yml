@@ -3,6 +3,11 @@ parameters:
     in: query
     type: string
     enum: ['asc', 'desc']
+  - name: format
+    in: query
+    type: string
+    enum: ['json', 'xml']
+    default: 'json'
 responses:
   200:
     description: List of drivers
@@ -22,3 +27,5 @@ responses:
                 type: string
   400:
     description: Invalid order parameter
+  406:
+    description: Invalid format parameter
