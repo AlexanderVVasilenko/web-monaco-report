@@ -22,16 +22,26 @@ def reformat_racers_to_dict(racers: list[RacerData]) -> list[dict]:
     return result
 
 
-def get_report(order: str = None) -> list | None:
+def get_report(
+    order: str = None, top: list = None, remaining: list = None
+) -> list | None:
+    if remaining and top:
+        racers = top + remaining
+    else:
+        racers = top_racers + remaining_racers
     if order == "asc":
-        return top_racers + remaining_racers
+        return reformat_racers_to_dict(racers)
     elif order == "desc":
-        return remaining_racers[::-1] + top_racers[::-1]
+        return reformat_racers_to_dict(racers[::-1])
+    else:
+        return None
 
 
-def get_driver_list(order: str = None) -> list | None:
+def get_driver_list(order: str = None, abbrs=None) -> list | None:
+    if abbrs is None:
+        abbrs = abbreviations
     # Removing useless spaces from all fields
-    reformatted_abbreviations = [[j.strip() for j in i] for i in abbreviations]
+    reformatted_abbreviations = [[j.strip() for j in i] for i in abbrs]
     result = [
         {"driver_id": racer[0], "name": racer[1], "team": racer[2]}
         for racer in reformatted_abbreviations

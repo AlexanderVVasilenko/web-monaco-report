@@ -31,9 +31,9 @@ class ReportResource(Resource):
             return {"error": "Invalid format parameter"}, 406
 
         if format_type == "json":
-            return {"racers": reformat_racers_to_dict(sorted_racers)}, 200
+            return {"racers": sorted_racers}, 200
         elif format_type == "xml":
-            xml_data = convert_to_xml(reformat_racers_to_dict(sorted_racers))
+            xml_data = convert_to_xml(sorted_racers)
             response = make_response(xml_data, 200, {"Content-Type": "application/xml"})
             return response
 
