@@ -1,6 +1,6 @@
 from peewee import SqliteDatabase, Model, CharField
 
-db = SqliteDatabase('f1_racing.db')
+db = SqliteDatabase("f1_racing.db")
 
 
 class BaseModel(Model):
