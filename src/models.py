@@ -20,8 +20,8 @@ class Racer(BaseModel):
 
 
 class LapTime(BaseModel):
-    race = ForeignKeyField(Race, backref='lap_times')
-    racer = ForeignKeyField(Racer, backref='lap_times')
+    race = ForeignKeyField(Race, backref="lap_times")
+    racer = ForeignKeyField(Racer, backref="lap_times")
     lap_time = FloatField()
 
 
