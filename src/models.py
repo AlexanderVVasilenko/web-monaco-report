@@ -11,6 +11,7 @@ class BaseModel(Model):
 class Race(BaseModel):
     race_name = CharField()
     location = CharField()
+    year = CharField(null=True)
 
 
 class Racer(BaseModel):

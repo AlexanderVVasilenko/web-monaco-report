@@ -37,7 +37,7 @@ def get_report(
         return None
 
 
-def get_driver_list(order: str = None, abbrs=None) -> list | None:
+def get_driver_list(order: str = None, abbrs: list[list[str]] = None) -> list | None:
     if abbrs is None:
         abbrs = abbreviations
     # Removing useless spaces from all fields
