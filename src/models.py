@@ -29,7 +29,7 @@ db.connect()
 db.create_tables([Racer, Race, LapTime])
 
 
-'''
+"""
 # Create an example race
 race_data = {'race_name': 'Monaco Grand Prix', 'location': 'Monte Carlo'}
 monaco_race = Race.create(**race_data)
@@ -51,7 +51,7 @@ lap_time_data3 = {'race': monaco_race, 'racer': leclerc, 'lap_time': 77.12}
 LapTime.create(**lap_time_data1)
 LapTime.create(**lap_time_data2)
 LapTime.create(**lap_time_data3)
-'''
+"""
 
 
 db.close()
