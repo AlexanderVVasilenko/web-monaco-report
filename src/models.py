@@ -1,4 +1,4 @@
-from peewee import SqliteDatabase, Model, CharField
+from peewee import SqliteDatabase, Model, CharField, ForeignKeyField, FloatField
 
 db = SqliteDatabase("f1_racing.db")
 
@@ -8,11 +8,21 @@ class BaseModel(Model):
         database = db
 
 
+class Race(BaseModel):
+    race_name = CharField()
+    location = CharField()
+
+
 class Racer(BaseModel):
     name = CharField()
     team = CharField()
-    lap_time = CharField()
     driver_id = CharField(unique=True)
+
+
+class LapTime(BaseModel):
+    race = ForeignKeyField(Race, backref='lap_times')
+    racer = ForeignKeyField(Racer, backref='lap_times')
+    lap_time = FloatField()
 
 
 db.connect()
