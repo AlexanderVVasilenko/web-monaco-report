@@ -29,7 +29,9 @@ class ReportResource(Resource):
                 return {"racers": sorted_report}, 200
             case "xml":
                 xml_data = convert_to_xml(sorted_report)
-                response = make_response(xml_data, 200, {"Content-Type": "application/xml"})
+                response = make_response(
+                    xml_data, 200, {"Content-Type": "application/xml"}
+                )
                 return response
 
 
@@ -50,7 +52,9 @@ class DriversListResource(Resource):
                 return {"racers": sorted_racers}, 200
             case "xml":
                 xml_data = convert_to_xml(sorted_racers)
-                response = make_response(xml_data, 200, {"Content-Type": "application/xml"})
+                response = make_response(
+                    xml_data, 200, {"Content-Type": "application/xml"}
+                )
                 return response
 
 
