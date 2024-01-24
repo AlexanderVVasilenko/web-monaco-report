@@ -4,13 +4,7 @@ from flask_restful import Resource
 import xmltodict
 
 from app import api_app
-from package_interaction import (
-    top_racers,
-    remaining_racers,
-    reformat_racers_to_dict,
-    get_report,
-    get_driver_list,
-)
+from insert_data import get_report_from_db, get_db_driver_list, get_db_driver_data
 
 
 def convert_to_xml(data: list | dict) -> str:
@@ -23,19 +17,20 @@ class ReportResource(Resource):
     def get(self) -> (dict, int):
         order = request.args.get("order", "asc")
         format_type = request.args.get("format", "json")
-        sorted_racers = get_report(order)
-        if not sorted_racers:
+        sorted_report = get_report_from_db(order)
+        if not sorted_report:
             return {"error": "Invalid order parameter"}, 400
 
         if format_type not in ["json", "xml"]:
             return {"error": "Invalid format parameter"}, 406
 
-        if format_type == "json":
-            return {"racers": sorted_racers}, 200
-        elif format_type == "xml":
-            xml_data = convert_to_xml(sorted_racers)
-            response = make_response(xml_data, 200, {"Content-Type": "application/xml"})
-            return response
+        match format_type:
+            case "json":
+                return {"racers": sorted_report}, 200
+            case "xml":
+                xml_data = convert_to_xml(sorted_report)
+                response = make_response(xml_data, 200, {"Content-Type": "application/xml"})
+                return response
 
 
 class DriversListResource(Resource):
@@ -46,16 +41,17 @@ class DriversListResource(Resource):
             return {"error": "Invalid format parameter"}, 406
 
         order = request.args.get("order", "asc")
-        sorted_racers = get_driver_list(order)
+        sorted_racers = get_db_driver_list(order)
         if not sorted_racers:
             return {"error": "Invalid order parameter"}, 400
 
-        if format_type == "json":
-            return {"racers": sorted_racers}, 200
-        elif format_type == "xml":
-            xml_data = convert_to_xml(sorted_racers)
-            response = make_response(xml_data, 200, {"Content-Type": "application/xml"})
-            return response
+        match format_type:
+            case "json":
+                return {"racers": sorted_racers}, 200
+            case "xml":
+                xml_data = convert_to_xml(sorted_racers)
+                response = make_response(xml_data, 200, {"Content-Type": "application/xml"})
+                return response
 
 
 class DriverResource(Resource):
@@ -65,17 +61,16 @@ class DriverResource(Resource):
         if format_type not in ["json", "xml"]:
             return {"error": "Invalid format parameter"}, 406
 
-        for racer in top_racers + remaining_racers:
-            if racer.driver_id == driver_id:
-                racer_data = reformat_racers_to_dict([racer])[0]
-                if format_type == "json":
+        racer_data = get_db_driver_data(driver_id)
+        if racer_data:
+            match format_type:
+                case "json":
                     return {"racer": racer_data}, 200
-                elif format_type == "xml":
+                case "xml":
                     xml_data = convert_to_xml(racer_data)
-                    response = make_response(
+                    return make_response(
                         xml_data, 200, {"Content-Type": "application/xml"}
                     )
-                    return response
         return {"error": "Driver not found"}, 404
 
 

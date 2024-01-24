@@ -1,7 +1,7 @@
 flask~=3.0.0
---extra-index-url https://test.pypi.org/simple
-f1_racing_reports
+--extra-index-url https://test.pypi.org/simple f1_racing_reports~=0.0.2
 pytest
 flask_restful
 xmltodict~=0.13.0
 peewee~=3.17.0
+flasgger~=0.9.7.1
