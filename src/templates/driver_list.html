@@ -8,7 +8,7 @@
     <h1>Driver List</h1>
     <ul>
         {% for racer in racers %}
-            <li>{{ racer[0] }} | {{ racer[1] }} | {{ racer[2] }}</li>
+            <li>{{ racer["name"] }} | {{ racer["team"] }} | {{ racer["driver_id"] }}</li>
         {% endfor %}
     </ul>
 </body>

@@ -4,7 +4,7 @@ from flask_restful import Resource
 import xmltodict
 
 from app import api_app
-from insert_data import get_report_from_db, get_db_driver_list, get_db_driver_data
+from insert_data import get_db_report, get_db_driver_list, get_db_driver_data
 
 
 def convert_to_xml(data: list | dict) -> str:
@@ -17,7 +17,7 @@ class ReportResource(Resource):
     def get(self) -> (dict, int):
         order = request.args.get("order", "asc")
         format_type = request.args.get("format", "json")
-        sorted_report = get_report_from_db(order)
+        sorted_report = get_db_report(order)
         if not sorted_report:
             return {"error": "Invalid order parameter"}, 400
 

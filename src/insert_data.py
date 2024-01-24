@@ -7,7 +7,7 @@ def insert_report(racers: list[LapTime]):
          "lap_time": lap_time_obj.lap_time} for lap_time_obj in racers]
 
 
-def get_report_from_db(
+def get_db_report(
         order: str = None) -> list[dict] | None:
     query = LapTime.select()
     report = insert_report(query)
