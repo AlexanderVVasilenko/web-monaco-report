@@ -3,8 +3,11 @@ from flask import request, make_response
 from flask_restful import Resource
 import xmltodict
 
-from app import api_app
+
+from app import create_api_app
 from insert_data import get_db_report, get_db_driver_list, get_db_driver_data
+
+api_app = create_api_app()
 
 
 def convert_to_xml(data: list | dict) -> str:
