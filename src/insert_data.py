@@ -1,4 +1,4 @@
-from models import LapTime, Racer
+from src.models import LapTime, Racer
 
 
 def insert_report(racers: list[LapTime]) -> list[dict]:

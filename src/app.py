@@ -1,12 +1,15 @@
-from flasgger import Swagger
 from flask import Flask
 from flask_restful import Api
-
+from flasgger import Swagger
 
 app = Flask(__name__)
-api_app = Api(app, default_mediatype="application/xml")
 swagger = Swagger(app)
-api_app.app.config["RESTFUL_JSON"] = {"ensure_ascii": False}
+
+
+def create_api_app():
+    api_app = Api(app, default_mediatype="application/xml")
+    api_app.app.config["RESTFUL_JSON"] = {"ensure_ascii": False}
+    return api_app
 
 
 import api
