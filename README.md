@@ -15,19 +15,20 @@ A web and api application using Flask to generate reports on Formula 1 racing re
 - Flask
 - f1_racing_reports
 - pytest
+- peewee
 
 ## Getting Started
 
 1. Clone the repository:
 
     ```bash
-    git clone https://github.com/AlexanderVVasilenko/web-monaco-report.git
+    git clone https://github.com/AlexanderVVasilenko/webReport.git
     ```
 
 2. Navigate to the project directory:
 
     ```bash
-    cd web-monaco-report
+    cd webReport
     ```
 
 3. Install dependencies:
@@ -36,16 +37,22 @@ A web and api application using Flask to generate reports on Formula 1 racing re
     # If needed
     pip install -r requirements.txt
     ```
+   
+4. Create a database:
 
-4. Run the Flask app:
+   ```bash
+   python store_data.py
+   ```
+
+5. Run the Flask app:
 
     ```bash
-    python src/app.py
+    python app.py
     ```
 
-5. Open your web browser and go to [http://127.0.0.1:5000/report/](http://127.0.0.1:5000/report/) to view the driver report.
+6. Open your web browser and go to [http://127.0.0.1:5000/report/](http://127.0.0.1:5000/report/) to view the driver report.
    
-6. Open your web browser and go to [http://127.0.0.1:5000/apidocs/](http://127.0.0.1:5000/apidocs/) to view the 
+7. Open your web browser and go to [http://127.0.0.1:5000/apidocs/](http://127.0.0.1:5000/apidocs/) to view the 
 Swagger documentation.
 
 ## Endpoints
@@ -161,4 +168,4 @@ Explore the available endpoints, parameters, and responses interactively.
 Run the tests using:
 
 ```bash
-python -m pytest tests/
+python -m pytest test_app.py
