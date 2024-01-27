@@ -2,7 +2,7 @@ from flask import request, redirect, url_for, render_template
 
 
 from app import app
-from insert_data import get_db_report, get_db_driver_data, get_db_driver_list
+from retrieve_data import get_db_report, get_db_driver_data, get_db_driver_list
 
 
 @app.route("/report/", methods=["GET"])

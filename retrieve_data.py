@@ -16,8 +16,10 @@ def insert_report(racers: list[LapTime]) -> list[dict]:
 def get_db_report(order: str = None) -> list[dict] | None:
     lap_times = LapTime.select()
     report = insert_report(lap_times)
+    print(order)
 
     if order == "asc":
+        print(sorted(report, key=lambda x: x["lap_time"], reverse=False))
         return sorted(report, key=lambda x: x["lap_time"], reverse=False)
     elif order == "desc":
         return sorted(report, key=lambda x: x["lap_time"], reverse=True)
