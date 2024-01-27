@@ -2,7 +2,7 @@
 
 from f1_racing_reports.report import RacerData
 
-from src.package_interaction import reformat_racers_to_dict, get_report, get_driver_list
+from package_interaction import reformat_racers_to_dict, get_report, get_driver_list
 
 
 def test_reformat_racers_to_dict():
